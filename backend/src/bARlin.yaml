@@ -1,0 +1,285 @@
+openapi: 3.0.3
+info:
+  title: bARlin API
+  description: The Api can be used to setup the Database and to get information about sights in Berlin
+  version: 1.0.0
+servers:
+  - url: https://localhost:3443/api
+  - url: http://localhost:3080/api
+paths:
+  /sights:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns a list of all Sights"
+      responses:
+        200:
+            description: A list of sights
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError' 
+  /sights/number/{number}:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns a list of Sights"
+      parameters:
+        - in: path
+          name: number
+          schema:
+            type: integer
+          required: true
+          description: The number of sights to return
+      responses:
+        200:
+            description: A list of sights
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+  /sights/distance/{radius}:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns a list of Sights"
+      parameters:
+        - in: path
+          name: radius
+          schema:
+            type: integer
+          required: true
+          description: The radius in which sights should be returned
+      responses:
+        200:
+            description: A list of sights
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+  /sights/name/{sight}:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns information about a Sight, given its name"
+      parameters:
+        - in: path
+          name: sight
+          schema:
+            type: string
+          required: true
+          description: The name of the sight
+      responses:
+        200:
+            description: A sight
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError' 
+  /sights/id/{id}:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns information about a Sight, given its id"
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: The id of the sight
+      responses:
+        200:
+            description: A sight
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /sights/search:
+    get:
+      security:
+          - basicAuth: []
+      tags:
+        - "Operation"
+      summary: "Returns a list of Sights"
+      parameters:
+        - in: query
+          name: name
+          schema:
+            type: string
+          required: false
+          description: The name of the sight
+        - in: query
+          name: category
+          schema:
+            type: array
+            items:
+              type: string
+            enum: ['wissenschaft-technik', 'karl-friedrich-schinkel', 'ns-bauten', 'ddr-bauten', 'literatur', 'regierungsbauten', 'religion-glauben', 'mauer', 'schloesser-burgen-herrenhaeuser', 'juedisches-berlin', 'industriedenkmaeler', 'gedenkstaetten', 'architektur']
+          required: false
+          description: The category of the sight
+        - in: query
+          name: location
+          schema:
+            type: object
+            properties:
+              lon:
+                type: number
+                description: The longitude of the sight
+              lat:
+                type: number
+                description: The latitude of the sight
+          required: false
+          description: The location of the search
+        - in: query
+          name: distance
+          schema:
+            type: integer
+          required: false
+          description: The distance (km) in which sights should be returned
+        - in: query
+          name: number
+          schema:
+            type: integer
+          required: false
+          description: The number of sights to return
+      responses:
+        200:
+            description: A list of sights
+            content:
+              application/json:
+                schema:
+                  type: array
+                  items:
+                    $ref: "#/components/schemas/Sights"
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /setup: 
+    post:
+      security:
+          - basicAuth: []
+      tags:
+        - "Setup"
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  description: The url of a source JSON file
+      summary: "Setup the database"
+      responses:
+        200:
+            description: The database was setup
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /setup/categories:
+    post:
+      security:
+          - basicAuth: []
+      tags:
+        - "Setup"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  link:
+                    type: object
+                    properties: 
+                      url:
+                        type: string
+                        description: The url of a source JSON file
+                      category:
+                        type: string
+                        description: The category of the sights
+      summary: "Setup the categories"
+      responses:
+        200:
+            description: The categories were setup
+        401:
+          $ref: '#/components/responses/UnauthorizedError'
+
+components:
+  schemas:
+    Sights:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: The id of the sight
+        name:
+          type: string
+          description: The name of the sight
+        location:
+          type: object
+          properties:
+            lon:
+              type: number
+              description: The longitude of the sight
+            lat:
+              type: number
+              description: The latitude of the sight
+        link:
+          type: string
+          description: The link to the sight
+        teaser:
+          type: string
+          description: A teaser of the sight
+        category:
+          type: array
+          items:
+            type: string
+          description: The category of the sight
+          enum: ['wissenschaft-technik', 'karl-friedrich-schinkel', 'ns-bauten', 'ddr-bauten', 'literatur', 'regierungsbauten', 'religion-glauben', 'mauer', 'schloesser-burgen-herrenhaeuser', 'juedisches-berlin', 'industriedenkmaeler', 'gedenkstaetten', 'architektur']
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+      headers:
+        WWW_Authenticate:
+          schema:
+            type: string
+
+
+security:
+  - basicAuth: [] 

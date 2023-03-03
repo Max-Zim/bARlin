@@ -1,0 +1,54 @@
+[
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/wissenschaft-technik/index.json",
+    "category": "wissenschaft-technik"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/schinkel/index.json",
+    "category": "karl-friedrich-schinkel"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/ns-bauten/index.json",
+    "category": "ns-bauten"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/ddr-bauten/index.json",
+    "category": "ddr-bauten"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/literatur/index.json",
+    "category": "literatur"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/regierungsbauten/index.json",
+    "category": "regierungsbauten"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/religion-glauben/index.json",
+    "category": "religion-glauben"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/mauer/index.json",
+    "category": "mauer"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/schloesser-burgen-herrenhaeuser/index.json",
+    "category": "schloesser-burgen-herrenhaeuser"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/juedisches-berlin/index.json",
+    "category": "juedisches-berlin"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/industriedenkmaeler/index.json",
+    "category": "industriedenkmaeler"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/gedenkstaetten/index.json",
+    "category": "gedenkstaetten"
+  },
+  {
+    "url": "https://www.berlin.de/sehenswuerdigkeiten/thema/architektur/index.json",
+    "category": "architektur"
+  }
+]
